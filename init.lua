@@ -18,8 +18,8 @@ return {
   },
 
   -- Set colorscheme to use
-  --colorscheme = "tokionight-nvim",
-  colorscheme = "gruvbox",
+  colorscheme = "tokyonight",
+  -- colorscheme = "gruvbox",
 
   -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
   diagnostics = {

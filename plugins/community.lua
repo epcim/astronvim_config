@@ -8,4 +8,5 @@ return {
   { import = "astrocommunity.colorscheme.gruvbox-nvim" },
   { import = "astrocommunity.colorscheme.tokyonight-nvim" },
   { import = "astrocommunity.completion.copilot-lua-cmp" },
+  { import = "astrocommunity.utility.noice-nvim" },
 }
