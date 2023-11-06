@@ -82,5 +82,15 @@ return {
     --     ["~/%.config/foo/.*"] = "fooscript",
     --   },
     -- }
+    --
+    -- vimrc
+    --
+    
+    --load vimrc config in init.lua from ~/.config/nvim/lua/user/vimrc.vim
+    vim.cmd.source(vim.fn.stdpath("config") .. "/" .. "lua/user/vimrc.vim")
+    
   end,
+
 }
+
+
