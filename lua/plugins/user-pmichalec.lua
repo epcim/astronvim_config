@@ -15,6 +15,7 @@ return {
 
   -- Prefered plugins
   { "will133/vim-dirdiff", cmd = "DirDiff" },
+
   {
     "alker0/chezmoi.vim",
     lazy = false,
@@ -22,6 +23,20 @@ return {
       -- This option is required.
       vim.g["chezmoi#use_tmp_buffer"] = true
     end,
+  },
+
+  {
+    "harrisoncramer/gitlab.nvim",
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "nvim-lua/plenary.nvim",
+      "sindrets/diffview.nvim",
+      "stevearc/dressing.nvim", -- Recommended but not required. Better UI for pickers.
+      "nvim-tree/nvim-web-devicons", -- Recommended but not required. Icons in discussion tree.
+    },
+    enabled = true,
+    build = function() require("gitlab.server").build(true) end, -- Builds the Go binary
+    config = function() require("gitlab").setup() end,
   },
 
   --polish = function()
