@@ -46,8 +46,8 @@ return {
         f5gpt = {
           __inherited_from = "openai",
           api_key_name = "F5GPT_API_KEY",
-          endpoint = "https://f5ai.pd.f5net.com/openai/",
-          model = "o4-mini",
+          endpoint = "https://xxx/openai/",
+          model = "o3",
           -- openai = {
           --   endpoint = "https://api.openai.com/v1",
           --   model = "o4-mini", -- your desired model (or use gpt-4o, etc.)
@@ -58,14 +58,55 @@ return {
           --     --reasoning_effort = "medium", -- low|medium|high, only used for reasoning models
           --   },
           -- },
+          --
+          -- claude = {
+          --   endpoint = "https://api.anthropic.com",
+          --   model = "claude-sonnet-4-20250514",
+          --   timeout = 30000, -- Timeout in milliseconds
+          --     extra_request_body = {
+          --       temperature = 0.75,
+          --       max_tokens = 20480,
+          --     },
+          -- },
         },
         behavior = {
           auto_suggestions = true,
           enable_claude_text_editor_tool_mode = true,
         },
       },
+      override_prompt_dir = vim.fn.expand "~/.config/ai/prompts",
+      --
+      -- The custom_tools type supports both a list and a function that returns a list.
+      -- Using a function here prevents requiring mcphub before it's loaded
+      --
+      system_prompt = function()
+        -- already defined on mcphub astrocomunity lua
+        local hub = require("mcphub").get_hub_instance()
+        return hub:get_active_servers_prompt()
+      end,
+      disabled_tools = { -- NOTE: https://ravitemer.github.io/mcphub.nvim/extensions/avante.html#tool-conflicts
+        "list_files",
+        -- Built-in file operations"search_files","read_file","create_file","rename_file","delete_file","create_dir",
+        "rename_dir",
+        "delete_dir",
+        "bash", -- Built-in terminal access
+      },
     },
   },
+  {
+    "banjo/contextfiles.nvim",
+    otps = {
+      context_dir = ".cursor/rules",
+      gist_ids = {},
+      enable_local = true,
+    },
+  },
+  -- {
+  --   "dlants/magenta.nvim",
+  --   lazy = false, -- you could also bind to <leader>mt
+  --   build = "npm install --frozen-lockfile",
+  --   opts = {},
+  -- },
 
   -- CONFIGURED FROM COMMUNITY
   -- {

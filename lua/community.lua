@@ -23,5 +23,10 @@ return {
   --{ import = "astrocommunity.completion.copilot-lua-cmp" },
 
   { import = "astrocommunity.utility.noice-nvim" },
+
   { import = "astrocommunity.completion.avante-nvim" },
+  { import = "astrocommunity.file-explorer.oil-nvim" },
+  { import = "astrocommunity.note-taking.obsidian-nvim" },
+  { import = "astrocommunity.editing-support.mcphub-nvim" },
+  --{ import = "astrocommunity.editing-support.codecompanion-nvim" },
 }
