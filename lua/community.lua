@@ -16,17 +16,26 @@ return {
   { import = "astrocommunity.pack.json" },
   { import = "astrocommunity.pack.chezmoi" },
   { import = "astrocommunity.git.blame-nvim" },
+  --{ import = "astrocommunity.utility.noice-nvim" },
 
+  -- COMPLETITION
+  -- https://github.com/AstroNvim/astrocommunity/tree/main/lua/astrocommunity/completion
+  --{ import = "astrocommunity.completion.copilot-lua-cmp" },
+  --
+  -- FIXME, this disabled few other.. why?
+  { import = "astrocommunity.completion.blink-cmp" },
+  { import = "astrocommunity.completion.blink-cmp-tmux" },
+
+  -- COLORS
   { import = "astrocommunity.colorscheme.gruvbox-nvim" },
   -- { import = "astrocommunity.colorscheme.catppuccin" },
   -- { import = "astrocommunity.colorscheme.tokyonight-nvim" },
-  --{ import = "astrocommunity.completion.copilot-lua-cmp" },
 
-  { import = "astrocommunity.utility.noice-nvim" },
-
-  { import = "astrocommunity.completion.avante-nvim" },
+  -- EVALUATING
   { import = "astrocommunity.file-explorer.oil-nvim" },
   { import = "astrocommunity.note-taking.obsidian-nvim" },
-  { import = "astrocommunity.editing-support.mcphub-nvim" },
+  --{ import = "astrocommunity.completion.avante-nvim" },
+  --{ import = "astrocommunity.editing-support.mcphub-nvim" },
   --{ import = "astrocommunity.editing-support.codecompanion-nvim" },
+  { import = "astrocommunity.editing-support.codecompanion-nvim" },
 }
