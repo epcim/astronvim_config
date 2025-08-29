@@ -16,13 +16,11 @@ return {
   { import = "astrocommunity.pack.json" },
   { import = "astrocommunity.pack.chezmoi" },
   { import = "astrocommunity.git.blame-nvim" },
-  --{ import = "astrocommunity.utility.noice-nvim" },
 
-  -- COMPLETITION
-  -- https://github.com/AstroNvim/astrocommunity/tree/main/lua/astrocommunity/completion
-  --{ import = "astrocommunity.completion.copilot-lua-cmp" },
-  --
-  -- FIXME, this disabled few other.. why?
+  -- FIXME, cursor blink
+  -- { import = "astrocommunity.utility.noice-nvim" },
+
+  -- blink is faster rust impl. replacing nvim-cmp
   { import = "astrocommunity.completion.blink-cmp" },
   { import = "astrocommunity.completion.blink-cmp-tmux" },
 
@@ -31,11 +29,10 @@ return {
   -- { import = "astrocommunity.colorscheme.catppuccin" },
   -- { import = "astrocommunity.colorscheme.tokyonight-nvim" },
 
-  -- EVALUATING
   { import = "astrocommunity.file-explorer.oil-nvim" },
   { import = "astrocommunity.note-taking.obsidian-nvim" },
-  --{ import = "astrocommunity.completion.avante-nvim" },
-  --{ import = "astrocommunity.editing-support.mcphub-nvim" },
-  --{ import = "astrocommunity.editing-support.codecompanion-nvim" },
-  { import = "astrocommunity.editing-support.codecompanion-nvim" },
+
+  -- AI SUPPORT (now plugins/ai-support.lua)
+  -- { import = "astrocommunity.editing-support.codecompanion-nvim" },
+  -- { import = "astrocommunity.editing-support.mcphub-nvim" },
 }
