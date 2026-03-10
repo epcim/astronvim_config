@@ -19,6 +19,13 @@ return {
       { "<leader>mp", "<cmd>MermaidPlaygroundToggle<cr>", desc = "Toggle Mermaid Preview" },
     },
   },
+  -- {
+  --   "vhyrro/luarocks.nvim",
+  --   priority = 1001, -- Ensures it loads before image.nvim
+  --   opts = {
+  --     rocks = { "magick" },
+  --   },
+  -- },
   {
     "3rd/image.nvim",
     opts = {
