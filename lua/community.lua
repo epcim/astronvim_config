@@ -17,6 +17,8 @@ return {
   { import = "astrocommunity.pack.chezmoi" },
   { import = "astrocommunity.git.blame-nvim" },
 
+  -- { import = "astrocommunity.recipes.ai" },
+
   -- FIXME, cursor blink
   -- { import = "astrocommunity.utility.noice-nvim" },
 
@@ -31,6 +33,9 @@ return {
 
   { import = "astrocommunity.file-explorer.oil-nvim" },
   { import = "astrocommunity.note-taking.obsidian-nvim" },
+
+  -- lsp
+  { import = "astrocommunity.utility.mason-tool-installer-nvim" },
 
   -- AI SUPPORT (now plugins/ai-support.lua)
   -- { import = "astrocommunity.editing-support.codecompanion-nvim" },

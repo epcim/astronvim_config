@@ -1,40 +1,157 @@
 return {
-  {
-    "AstroNvim/astrocommunity",
+  "AstroNvim/astrocommunity",
+  { import = "astrocommunity.recipes.ai" }, -- https://docs.astronvim.com/recipes/ai/
 
-    -- eval
-    -- { import = "astrocommunity.completion.avante-nvim" },
-    -- { import = "astrocommunity.completion.minuet-ai-nvim" },
-
-    -- disable when out of quota
-    -- { import = "astrocommunity.completion.copilot-cmp" },
-    -- { import = "astrocommunity.completion.copilot-lua" },
-    -- { import = "astrocommunity.completion.copilot-lua-cmp" },
-    -- { import = "astrocommunity.completion.copilot-vim" },
-    -- { import = "astrocommunity.completion.copilot-vim-cmp" },
-    -- { import = "astrocommunity.editing-support.copilotchat-nvim" },
-    --
-    { import = "astrocommunity.editing-support.mcphub-nvim" },
-    --{ import = "astrocommunity.editing-support.vector-code-nvim" },
-    --{ import = "astrocommunity.editing-support.codecompanion-nvim" },
-  },
+  -- DEPRECATED OR TO EVAL
+  -- { import = "astrocommunity.completion.avante-nvim" },
+  -- { import = "astrocommunity.completion.minuet-ai-nvim" },
+  -- disable when out of quota
+  { import = "astrocommunity.completion.copilot-cmp" },
+  -- { import = "astrocommunity.completion.copilot-lua" },
+  -- { import = "astrocommunity.completion.copilot-lua-cmp" },
+  -- { import = "astrocommunity.completion.copilot-vim" },
+  -- { import = "astrocommunity.completion.copilot-vim-cmp" },
+  { import = "astrocommunity.editing-support.copilotchat-nvim" },
+  --{ import = "astrocommunity.editing-support.mcphub-nvim" },
+  --{ import = "astrocommunity.editing-support.vector-code-nvim" },
+  --{ import = "astrocommunity.editing-support.codecompanion-nvim" },
+  --
   -- UTILS
+  -- { "ravitemer/mcphub.nvim", opts = {
+  -- { port = 37373, config = "~/.config/mcphub/servers.json" },
+  -- } },
+  --
   {
-    -- https://github.com/sphamba/smear-cursor.nvim
-    "sphamba/smear-cursor.nvim",
+    "sphamba/smear-cursor.nvim", -- https://github.com/sphamba/smear-cursor.nvim
     opts = {},
   },
+  -- {
+  --   "Piotr1215/pairup.nvim",
+  --   cmd = { "Pairup" },
+  --   keys = {
+  --     { "<leader>cc", "<cmd>Pairup start<cr>", desc = "Start Claude" },
+  --     { "<leader>ct", "<cmd>Pairup toggle<cr>", desc = "Toggle terminal" },
+  --     { "<leader>cq", "<cmd>Pairup markers user<cr>", desc = "Show uu: questions" },
+  --     { "<leader>cC", "<cmd>Pairup markers claude<cr>", desc = "Show cc: markers" },
+  --     { "<leader>cx", "<cmd>Pairup stop<cr>", desc = "Stop Claude" },
+  --   },
+  --   config = function()
+  --     require("pairup").setup()
+  --     -- Default works out of the box. Override only if needed:
+  --     -- require("pairup").setup({
+  --     --   provider = "claude",
+  --     --   provider = "opencode",
+  --     --   providers = {
+  --     --     claude = { cmd = "claude --permission-mode plan" },
+  --     --   },
+  --     -- })
+  --   end,
+  -- },
   {
-    "MeanderingProgrammer/render-markdown.nvim",
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    build = ":Copilot auth",
+    event = "BufReadPost",
     opts = {
-      --file_types = { "markdown", "Avante" },
-      ft = { "markdown", "codecompanion" },
+      suggestion = {
+        keymap = {
+          accept = false, -- handled by completion engine
+        },
+      },
+    },
+    specs = {
+      {
+        "AstroNvim/astrocore",
+        opts = {
+          options = {
+            g = {
+              -- set the ai_accept function
+              ai_accept = function()
+                if require("copilot.suggestion").is_visible() then
+                  require("copilot.suggestion").accept()
+                  return true
+                end
+              end,
+            },
+          },
+        },
+      },
     },
   },
+  {
+    "A7Lavinraj/fyler.nvim",
+    dependencies = {
+      "nvim-mini/mini.icons",
+      {
+        "AstroNvim/astrocore",
+        opts = function(_, opts)
+          local maps = opts.mappings or {}
+          local fdir = vim.fn.expand "%:h"
+          maps.n["<Leader>E"] = {
+            function() require("fyler").toggle { dir = fdir, kind = "float" } end,
+            desc = "Open Fyler",
+          }
+        end,
+      },
+    },
+    branch = "stable", -- Use stable branch for production
+    lazy = false, -- Necessary for `default_explorer` to work properly
+    opts = {},
+  },
+  -- {
+  --     "A7Lavinraj/fyler.nvim",
+  --     dependencies = {
+  --       "nvim-mini/mini.icons",
+  --       {
+  --         "AstroNvim/astrocore",
+  --         opts = function(_, opts)
+  --           local maps = opts.mappings or {}
+  --           --local fdir = require("oil").get_current_dir()
+  --           maps.n["<Leader>E"] = {
+  --             function(self) require("fyler").toggle { dir = self.bufnr, kind = "float" } end,
+  --             desc = "Open with fyler",
+  --           }
+  --         end,
+  --       },
+  --     },
+  --   },
+
+  -- {
+  --   "mfussenegger/nvim-lint",
+  --   opts = {
+  --     linters = {
+  --       yamllint = {
+  --         cmd = "yamllint",
+  --         args = { "-c", vim.fn.expand "~/.config/yamllint/config", "-f", "parsable", "-" },
+  --         stdin = true,
+  --       },
+  --       -- Customizing the markdownlint linter, store .markdownlint.yaml in each project
+  --       --       -- markdownlint = {
+  --       --       -- args = { "--disable"  "MD009", "--disable", "MD013", "--" },
+  --       --       -- args = { "--config", vim.fn.expand "$HOME/.markdownlint.yaml", "--" },
+  --       --       -- },
+  --       --       ["markdownlint-cli2"] = {
+  --       --         -- Pass extra arguments to disable rule MD009 (trailing spaces)
+  --       --         args = { "--config", vim.fn.expand "$HOME/.markdownlint-cli2.yaml", "--" },
+  --       --       },
+  --     },
+  --   },
+  -- },
+  -- {
+  --   "stevearc/conform.nvim",
+  --   opts = {
+  --     formatters = {
+  --       ["markdownlint-cli2"] = {
+  --         args = { "--config", vim.fn.expand "$HOME/.markdownlint-cli2.yaml", "--fix", "$FILENAME" },
+  --       },
+  --     },
+  --   },
+  -- },
   {
     "HakonHarnes/img-clip.nvim",
     opts = {
       -- filetypes = {
+      --
       --   codecompanion = {
       --     prompt_for_file_name = false,
       --     template = "[Image]($FILE_PATH)",
@@ -43,59 +160,65 @@ return {
       -- },
     },
   },
+  --
+  -- LLM
+  --{ import = "astrocommunity.ai.kurama622-llm-nvim" },
+  --
   -- OPENCODE
-  {
-    "NickvanDyke/opencode.nvim",
-    dependencies = {
-      -- Recommended for better prompt input, and required to use opencode.nvim's embedded terminal — otherwise optional
-      { "folke/snacks.nvim", opts = { input = { enabled = true } } },
-    },
-    ---@type opencode.Opts
-    opts = {
-      -- Your configuration, if any — see lua/opencode/config.lua
-    },
-    keys = {
-      -- Recommended keymaps
-      { "<leader>oA", function() require("opencode").ask() end, desc = "Ask opencode" },
-      {
-        "<leader>oa",
-        function() require("opencode").ask "@cursor: " end,
-        desc = "Ask opencode about this",
-        mode = "n",
-      },
-      {
-        "<leader>oa",
-        function() require("opencode").ask "@selection: " end,
-        desc = "Ask opencode about selection",
-        mode = "v",
-      },
-      { "<leader>ot", function() require("opencode").toggle() end, desc = "Toggle embedded opencode" },
-      { "<leader>on", function() require("opencode").command "session_new" end, desc = "New session" },
-      { "<leader>oy", function() require("opencode").command "messages_copy" end, desc = "Copy last message" },
-      {
-        "<S-C-u>",
-        function() require("opencode").command "messages_half_page_up" end,
-        desc = "Scroll messages up",
-      },
-      {
-        "<S-C-d>",
-        function() require("opencode").command "messages_half_page_down" end,
-        desc = "Scroll messages down",
-      },
-      {
-        "<leader>op",
-        function() require("opencode").select_prompt() end,
-        desc = "Select prompt",
-        mode = { "n", "v" },
-      },
-      -- Example: keymap for custom prompt
-      {
-        "<leader>oe",
-        function() require("opencode").prompt "Explain @cursor and its context" end,
-        desc = "Explain code near cursor",
-      },
-    },
-  },
+  { import = "astrocommunity.ai.opencode-nvim" },
+  -- {
+  --   "NickvanDyke/opencode.nvim",
+  --   dependencies = {
+  --     -- Recommended for better prompt input, and required to use opencode.nvim's embedded terminal — otherwise optional
+  --     { "folke/snacks.nvim", opts = { input = { enabled = true } } },
+  --     -- { "ravitemer/mcphub.nvim" },
+  --   },
+  --   ---@type opencode.Opts
+  --   opts = {
+  --     -- Your configuration, if any — see lua/opencode/config.lua
+  --   },
+  --   keys = {
+  --     -- Recommended keymaps
+  --     { "<leader>oA", function() require("opencode").ask() end, desc = "Ask opencode" },
+  --     {
+  --       "<leader>oa",
+  --       function() require("opencode").ask "@cursor: " end,
+  --       desc = "Ask opencode about this",
+  --       mode = "n",
+  --     },
+  --     {
+  --       "<leader>oa",
+  --       function() require("opencode").ask "@selection: " end,
+  --       desc = "Ask opencode about selection",
+  --       mode = "v",
+  --     },
+  --     { "<leader>ot", function() require("opencode").toggle() end, desc = "Toggle embedded opencode" },
+  --     { "<leader>on", function() require("opencode").command "session_new" end, desc = "New session" },
+  --     { "<leader>oy", function() require("opencode").command "messages_copy" end, desc = "Copy last message" },
+  --     {
+  --       "<S-C-u>",
+  --       function() require("opencode").command "messages_half_page_up" end,
+  --       desc = "Scroll messages up",
+  --     },
+  --     {
+  --       "<S-C-d>",
+  --       function() require("opencode").command "messages_half_page_down" end,
+  --       desc = "Scroll messages down",
+  --     },
+  --     {
+  --       "<leader>op",
+  --       function() require("opencode").select_prompt() end,
+  --       desc = "Select prompt",
+  --       mode = { "n", "v" },
+  --     },
+  --     -- Example: keymap for custom prompt
+  --     {
+  --       "<leader>oe",
+  --       function() require("opencode").prompt "Explain @cursor and its context" end,
+  --       desc = "Explain code near cursor",
+  --     },
+  --   },
+  -- },
   --
   -- CODECOMPANION
   -- { -- https://github.com/AstroNvim/astrocommunity/blob/main/lua/astrocommunity/editing-support/codecompanion-nvim/init.lua
