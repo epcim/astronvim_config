@@ -6,12 +6,13 @@ return {
   -- { import = "astrocommunity.completion.avante-nvim" },
   -- { import = "astrocommunity.completion.minuet-ai-nvim" },
   -- disable when out of quota
-  { import = "astrocommunity.completion.copilot-cmp" },
+  -- { import = "astrocommunity.completion.copilot-cmp" }, -- DISABLED: requires nvim-cmp, using blink-cmp instead
+  -- { import = "astrocommunity.completion.blink-copilot" }, -- DISABLED: user prefers community config
   -- { import = "astrocommunity.completion.copilot-lua" },
   -- { import = "astrocommunity.completion.copilot-lua-cmp" },
   -- { import = "astrocommunity.completion.copilot-vim" },
   -- { import = "astrocommunity.completion.copilot-vim-cmp" },
-  { import = "astrocommunity.editing-support.copilotchat-nvim" },
+  -- { import = "astrocommunity.editing-support.copilotchat-nvim" }, -- DISABLED: module removed/renamed in AstroCommunity
   --{ import = "astrocommunity.editing-support.mcphub-nvim" },
   --{ import = "astrocommunity.editing-support.vector-code-nvim" },
   --{ import = "astrocommunity.editing-support.codecompanion-nvim" },
@@ -54,10 +55,13 @@ return {
     event = "BufReadPost",
     opts = {
       suggestion = {
+        enabled = true,
+        auto_trigger = true,
         keymap = {
-          accept = false, -- handled by completion engine
+          accept = false, -- handled by <Tab> via recipes.ai
         },
       },
+      panel = { enabled = false },
     },
     specs = {
       {

@@ -1,48 +1,15 @@
-if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
-
--- Customize Mason plugins
+-- Mason tool declarations
+-- Community plugin imported in community.lua; this file configures it.
 
 ---@type LazySpec
 return {
   {
-    "mason-org/mason-lspconfig.nvim",
-    opts = {},
-    dependencies = {
-      { "mason-org/mason.nvim", opts = {} },
-      "neovim/nvim-lspconfig",
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    opts = {
+      ensure_installed = {
+        "cuelsp",
+        -- add more tools here as needed
+      },
     },
   },
-  -- -- use mason-lspconfig to configure LSP installations
-  -- {
-  --   "williamboman/mason-lspconfig.nvim",
-  --   -- overrides `require("mason-lspconfig").setup(...)`
-  --   opts = {
-  --     ensure_installed = {
-  --       "lua_ls",
-  --       -- add more arguments for adding more language servers
-  --     },
-  --   },
-  -- },
-  --
-  -- use mason-null-ls to configure Formatters/Linter installation for null-ls sources
-  -- {
-  --   "jay-babu/mason-null-ls.nvim",
-  --   -- overrides `require("mason-null-ls").setup(...)`
-  --   opts = {
-  --     ensure_installed = {
-  --       "stylua",
-  --       -- add more arguments for adding more null-ls sources
-  --     },
-  --   },
-  -- },
-  -- {
-  --   "jay-babu/mason-nvim-dap.nvim",
-  --   -- overrides `require("mason-nvim-dap").setup(...)`
-  --   opts = {
-  --     ensure_installed = {
-  --       "python",
-  --       -- add more arguments for adding more debuggers
-  --     },
-  --   },
-  -- },
 }

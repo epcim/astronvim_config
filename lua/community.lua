@@ -34,7 +34,7 @@ return {
   { import = "astrocommunity.file-explorer.oil-nvim" },
   { import = "astrocommunity.note-taking.obsidian-nvim" },
 
-  -- lsp
+  -- lsp (tool declarations in plugins/mason.lua)
   { import = "astrocommunity.utility.mason-tool-installer-nvim" },
 
   -- AI SUPPORT (now plugins/ai-support.lua)

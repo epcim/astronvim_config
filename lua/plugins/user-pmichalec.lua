@@ -15,6 +15,11 @@ return {
         view_error = "mini", -- view for errors
         view_warn = "mini", -- view for warnings
       },
+      lsp = {
+        -- Let AstroLSP v4 handle these instead of noice
+        hover = { enabled = false },
+        signature = { enabled = false },
+      },
     },
   },
 
